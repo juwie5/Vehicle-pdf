@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <section ref="content">
+      <section ref="content">
+      <section>
       <h1>VISUAL VECHILE INSPECTION REPORT</h1>
       <hr>
       <div class="head">
@@ -371,20 +372,33 @@
 
       </div>
       </section>
+      </section>
+    
       <section class="btn">
-          <button>DOWNLOAD PDF</button>
+          <button @click="download()">DOWNLOAD PDF</button>
       </section>
       
   </div>
 </template>
 
 <script>
+import html2pdf from 'html2pdf.js'
 export default {
   name: 'Index',
-  data: () => {
-    
+  methods:{
+      download(){  
+          let element = this.$refs.content
+          const opt = {
+              margin: 0,
+              filename: 'VVIR' + '.pdf',
+              image: {type: 'jpeg', quality: 0.98},
+              html2canvas: {scale : 2},
+              jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait'}
+          }  
+           html2pdf().set(opt).from(element).save()  
   }
   
+}
 }
 </script>
 
